@@ -1,0 +1,119 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+// using namespace __gnu_pbds;
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+
+
+#define pb push_back
+#define pob pop_back
+#define S second
+#define F first
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define vll vector<long long int>
+#define pll pair<long long int,long long int>
+// unordered_map<int,int>mp; mp.reserve(1024); mp.max_load_factor(0.25);
+#define mod 1000000007
+#define mod2 998244353
+#define ll long long int
+#define ld long double
+#define pi 3.141592653589793238
+#define Endl endl
+#define endl "\n"
+const ll N = 4e5 + 15;
+const ll inf = 1e18;
+
+vll a[N];
+vll color(N);
+vll cycle(N);
+vll two(N);
+
+void dfs1(ll u)
+{
+        color[u] = 1;
+        for(auto v:a[u])
+        {
+                if(color[v] == 1)
+                        cycle[v] = true;
+                else if(color[v] == 2)
+                        two[v] = true;
+                else
+                        dfs1(v);
+        }
+        color[u] = 2;
+}
+
+void dfs2(ll u)
+{
+        for(auto v:a[u])
+        {
+                if(cycle[v] == 0)
+                        cycle[v] = 1 , dfs2(v);
+        }
+}
+
+void dfs3(ll u)
+{
+        for(auto v:a[u])
+        {
+                if(two[v] == 0)
+                        two[v] = 1 , dfs3(v);
+        }
+}
+
+void clear(ll n)
+{
+        for(ll i = 0 ; i <= n ; i++ )
+                a[i].clear() , color[i] = 0 , cycle[i] = 0 , two[i] = 0;
+}
+
+void solve()
+{
+        ll n , m;
+        cin >> n >> m;
+        for(ll i = 1 ; i <= m ; i++)
+        {
+                ll u , v;
+                cin >> u >> v;
+                a[u].pb(v);
+        }
+        dfs1(1);
+        for(ll i = 1 ; i <= n ; i++ )
+        {
+                if(cycle[i])
+                        dfs2(i);
+                if(two[i])
+                        dfs3(i);
+        }
+        for(ll i = 1 ; i <= n ; i++ )
+        {
+                if(color[i] == 0)
+                        cout << 0;
+                else if(cycle[i])
+                        cout << -1;
+                else if(two[i])
+                        cout << 2;
+                else
+                        cout << 1;
+                cout << " ";
+        }
+        cout << endl;
+        clear(n);
+}        
+
+void debug(ll tt) {}
+ 
+signed main()
+{
+        FAST;
+        int t = 1;
+        cin >> t;
+        while(t--)
+        {
+                solve();
+        }
+}
+// freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);

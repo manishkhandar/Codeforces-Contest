@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+// using namespace __gnu_pbds;
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+
+
+#define pb push_back
+#define pob pop_back
+#define S second
+#define F first
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define vll vector<long long int>
+#define pll pair<long long int,long long int>
+// unordered_map<int,int>mp; mp.reserve(1024); mp.max_load_factor(0.25);
+#define mod 1000000007
+#define mod2 998244353
+#define ll long long int
+#define ld long double
+#define pi 3.141592653589793238
+#define Endl endl
+#define endl "\n"
+const ll N = 2e5 + 15;
+const ll inf = 1e18;
+
+void solve()
+{
+        ll n;
+        cin >> n;
+        vll a(n);
+        for(auto &x:a)
+                cin >> x;
+        vll b;
+        b.pb(0);
+        ll last = a[0];
+        for(ll i = 1 ; i < n ; i++ )
+        {
+                ll nxt = 0;
+                for(ll j = 0 ; j < 32 ; j++ )
+                {
+                        if( last & (1 << j) and !( a[i] & (1 << j) ))
+                                nxt |= (1 << j);   
+                }
+                b.pb(nxt);
+                last = a[i] ^ nxt;
+        }
+        for(auto x:b)
+                cout << x << " ";
+        cout << endl;
+}        
+
+void debug(ll tt) {}
+ 
+signed main()
+{
+        FAST;
+        int t = 1;
+        cin >> t;
+        while(t--)
+        {
+                solve();
+        }
+}
+// freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
