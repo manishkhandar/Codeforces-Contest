@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#define ll long long int
+#define ld long double
+#define pll pair<ll,ll>
+#define vll vector<ll>
+#define pi 3.141592653589793238
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define precise(x) fixed<<setprecision(x)
+#define mod 1000000007
+#define mod2 998244353
+#define mod3 100003
+#define endl "\n"
+
+// unordered_map<ll,ll>mp; mp.reserve(1024); mp.max_load_factor(0.25);
+#include <ext/pb_ds/tree_policy.hpp> 
+using namespace __gnu_pbds; 
+#define ordered_set tree<pll, null_type,less<pll>, rb_tree_tag,tree_order_statistics_node_update> 
+using namespace std;
+
+void solve()
+{
+        ll n,l,r;
+        cin>>n>>l>>r;
+        vll a(n);
+        for(auto &x:a)
+                cin>>x;
+        sort(a.begin(),a.end());
+        ll ans=0;
+        for(ll i=0;i<n;i++)
+        {
+                auto l1=lower_bound(a.begin(),a.end(),l-a[i]);
+                ll l;
+                // if(l1==a.end())
+                l=l1-a.begin();
+                auto r1=upper_bound(a.begin(),a.end(),r-a[i]);
+                // ll r;
+                // if(r1==a.end())
+                ll r=r1-a.begin();
+                // r=n-r;
+                r--;
+                ans+=(r-l+1);
+                // cout<<l<<r<<" ";
+                if(i>=l and i<=r)
+                        ans--;
+        }
+        cout<<ans/2<<endl;
+        return;
+}
+
+int main()
+{
+    FAST;
+    ll q;
+    q=1;
+    cin>>q;
+    while(q--)
+        solve();
+    return 0;
+}

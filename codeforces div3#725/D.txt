@@ -1,0 +1,128 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#define ll int
+#define ld long double
+#define pll pair<ll,ll>
+#define vll vector<ll>
+#define pi 3.141592653589793238
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define precise(x) fixed<<setprecision(x)
+#define mod 1000000007
+#define mod2 998244353
+#define mod3 100003
+#define endl "\n"
+
+// unordered_map<ll,ll>mp; mp.reserve(1024); mp.max_load_factor(0.25);
+#include <ext/pb_ds/tree_policy.hpp> 
+using namespace __gnu_pbds; 
+#define ordered_set tree<pll, null_type,less<pll>, rb_tree_tag,tree_order_statistics_node_update> 
+using namespace std;
+// ll N=1e9+1;
+// vll spf(N);
+
+
+void solve()
+{
+        ll a,b,k;
+        cin>>a>>b>>k;
+         if(a == b)
+        {
+                if(k == 1)
+                {
+                        cout << "NO" << endl;
+                        return;
+                }
+        }
+        if(k == 1)
+        {
+                if(a != b)
+                {
+                        if(a%b == 0)
+                                cout << "YES" << endl;
+                        else if(b%a == 0)
+                                cout << "YES" << endl;
+                        else
+                                cout << "NO" << endl;
+                }
+                else
+                {
+                        if(a%b == 0)
+                                cout << "YES" << endl;
+                        else if(b%a == 0)
+                                cout << "YES" << endl;
+                        else
+                                cout << "NO" << endl;        
+                }
+                return;
+        }
+        ll g=__gcd(a,b);
+        ll f=(a/g);
+        ll s=(b/g);
+        ll mxt=0;
+        while(f%2==0)
+        {
+                f/=2,mxt++;
+        }
+        while(s%2==0)
+        {
+                s/=2,mxt++;
+        }
+        while(g%2==0)
+        {
+                g/=2,mxt+=2;
+        }
+        for(ll i=3;i*i<=f;i++)
+        {
+                while(f>1 and f%i==0)
+                {
+                        f/=i;
+                        mxt++;
+                }
+                if(f==1)
+                        break;
+        }
+        if(f>1)
+                mxt++;
+        for(ll i=3;i*i<=s;i++)
+        {
+                while(s>1 and s%i==0)
+                {
+                        s/=i;
+                        mxt++;
+                }
+                if(s==1)
+                        break;
+        }
+        if(s>1)
+                mxt++;
+        for(ll i=3;i*i<=g;i++)
+        {
+                while(g>1 and g%i==0)
+                {
+                        // cout<<g<<" ";
+                        g/=i;
+                        mxt+=2;
+                }
+                if(g==1)
+                        break;
+        }
+        if(g>1)
+                mxt+=2;
+        // cout<<mxt<<" ";
+        if(k>mxt)
+                cout<<"NO"<<endl;
+        else
+                cout<<"YES"<<endl;
+        return;
+}
+
+int main()
+{
+    FAST;
+    ll q;
+    q=1;
+    cin>>q;
+    while(q--)
+        solve();
+    return 0;
+}
