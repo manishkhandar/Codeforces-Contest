@@ -1,0 +1,122 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+// using namespace __gnu_pbds;
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+
+
+#define pb push_back
+#define pob pop_back
+#define S second
+#define F first
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define vll vector<long long int>
+#define pll pair<long long int,long long int>
+/* unordered_map<int,int>mp; mp.reserve(1024); mp.max_load_factor(0.25); */
+#define mod 1000000007
+#define mod2 998244353
+#define ll long long int
+#define ld long double
+#define pi 3.141592653589793238
+#define Endl endl
+#define endl "\n"
+const int N = 5e3 + 15;
+const ll inf = 1e18;
+
+struct word
+{
+        ll len;
+        ll cnt;
+        string s;
+};
+
+string prefix(string s)
+{
+        if(s.size() < 3)
+                return s;
+        else
+                return s.substr(0,3);
+}
+
+string suffix(string s)
+{
+        if(s.size() < 3)
+                return s;
+        else
+                return s.substr(s.size()-3);
+}
+
+ll count(string s)
+{
+        ll ans = 0;
+        for(ll i = 0 ; i + 4 <= s.size() ; i++ )
+        {
+                if(s.substr(i,4) == "haha")
+                        ans++;
+        }
+        return ans;
+}
+
+word merge( word a, word b )
+{
+        word c;
+        c.len = a.len + b.len;
+        c.s = a.s + b.s;
+        c.cnt = a.cnt + b.cnt + count(suffix(a.s) + prefix(b.s));
+        // compression
+        if(c.len > 6)
+                c.s = prefix(c.s) + "$" + suffix(c.s); 
+        
+        return c;
+}
+
+void solve()
+{
+        ll n;
+        cin >> n;
+        map<string,word> mp;
+        ll ans = 0;
+        for(ll i = 0 ; i < n ; i++ )
+        {
+                string var;
+                cin >> var;
+                string sign;
+                cin >> sign;
+                if(sign == "=")
+                {
+                        string a , tmp , b;
+                        cin >> a >> tmp >> b;
+                        mp[var] = merge( mp[a] , mp[b] );
+                        word cur = mp[var];
+                }
+                else
+                {
+                        string s;
+                        cin >> s;
+                        word cur;
+                        cur.len = s.size();
+                        cur.s = s;
+                        cur.cnt = count(s);
+                        mp[var] = cur;
+                }
+                ans = mp[var].cnt;
+        }
+        cout << ans << endl;
+}         
+
+void debug(ll tt) {}
+ 
+signed main()
+{
+        FAST;
+        int t = 1;
+        cin >> t;
+        while(t--)
+        {
+                solve();
+        }
+}
+// freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);

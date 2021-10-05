@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#define ll long long int
+#define ld long double
+#define pll pair<ll,ll>
+#define vll vector<ll>
+#define pi 3.141592653589793238
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define precise(x) fixed<<setprecision(x)
+#define mod 1000000007
+#define mod2 998244353
+#define mod3 100003
+#define endl "\n"
+
+// unordered_map<ll,ll>mp; mp.reserve(1024); mp.max_load_factor(0.25);
+#include <ext/pb_ds/tree_policy.hpp> 
+using namespace __gnu_pbds; 
+#define ordered_set tree<pll, null_type,less<pll>, rb_tree_tag,tree_order_statistics_node_update> 
+using namespace std;
+
+void solve()
+{
+        ll n;
+        cin>>n;
+        vll a(n);
+        ll mn=1e9,id1;
+        ll mx=0,id2;
+        for(ll i=0;i<n;i++)
+        {
+                ll x;
+                cin>>x;
+                if(x>mx)
+                {
+                        mx=x;
+                        id1=i;
+                }
+                if(x<mn)
+                {
+                        mn=x;
+                        id2=i;
+                }
+        }
+        cout<<min({max(id1+1,id2+1),max(n-id1,n-id2),min(n-id1,id1+1)+min(n-id2,id2+1)})<<endl;
+        return;
+}
+
+int main()
+{
+    FAST;
+    ll q;
+    q=1;
+    cin>>q;
+    while(q--)
+        solve();
+    return 0;
+}

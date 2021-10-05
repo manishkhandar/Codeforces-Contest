@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#define ll long long int
+#define ld long double
+#define pll pair<ll,ll>
+#define vll vector<ll>
+#define pi 3.141592653589793238
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define precise(x) fixed<<setprecision(x)
+#define mod 1000000007
+#define mod2 998244353
+#define mod3 100003
+#define endl "\n"
+
+// unordered_map<ll,ll>mp; mp.reserve(1024); mp.max_load_factor(0.25);
+#include <ext/pb_ds/tree_policy.hpp> 
+using namespace __gnu_pbds; 
+#define ordered_set tree<pll, null_type,less<pll>, rb_tree_tag,tree_order_statistics_node_update> 
+using namespace std;
+// ll N=1e9+1;
+// vll spf(N);
+
+ll get(ll a)
+{
+        ll p=1;
+        ll ans=0;
+        while(p<=a)
+        {
+                ans+=(a/p);
+                p*=10;
+        }
+        return ans;
+}
+
+void solve()
+{
+        ll a,b;
+        cin>>a>>b;
+        // cout<<get(a)<<" "<<get(b)<<" ";
+        cout<<get(b)-get(a)<<endl;
+        return;
+}
+
+int main()
+{
+    FAST;
+    ll q;
+    q=1;
+    cin>>q;
+    while(q--)
+        solve();
+    return 0;
+}
